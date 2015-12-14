@@ -36,46 +36,60 @@ import android.widget.ImageView;
  * @filename 文件名称：HttpWebService.java
  * @contents 内容摘要：WebView服务
  */
-public class HttpWebService extends Thread {
-	private String url;// 网址
-	private WebView webView;// 显示网址的控件
+public class HttpIvService extends Thread {
+
+	private String ivurl;// 网址
+	private ImageView imageView;// 显示网址的控件
 	private Handler handler;// 线程
 
-	public HttpWebService(String url, WebView webView, Handler handler) {
-		this.url = url;
-		this.webView = webView;
+	public HttpIvService(String ivurl, ImageView imageView, Handler handler) {
+		this.ivurl = ivurl;
+		this.imageView = imageView;
 		this.handler = handler;
 	}
 
 	@Override
 	public void run() {
-		getWeb();
+		getIv();
 	}
 
-	private void getWeb() {
-		URL httpUrl;
+	private void getIv() {
 		try {
-			httpUrl = new URL(url);// 获取一个网址
+			URL httpUrl = new URL(ivurl);// 获取一个网址
 			HttpURLConnection connection = (HttpURLConnection) httpUrl
 					.openConnection();// 打开网址、获取连接
 			connection.setConnectTimeout(5000);// 设置超时时间ms
 			connection.setRequestMethod("GET");// 请求的方式get/post
-			final StringBuffer buffer = new StringBuffer();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(
-					connection.getInputStream()));// 在外层包过一层读取，并且用连接打开一个输入流
-			String str;
-			while ((str = reader.readLine()) != null) {// 如果不为空
-				buffer.append(str);// 得到的数据加载到buffer
-			}
-			handler.post(new Runnable() {
 
+			connection.setDoInput(true);// 是否要有个输入流
+			InputStream is = connection.getInputStream();// 获取连接的输入流
+
+			FileOutputStream fos = null;
+			File downloadFile = null;
+			String fileName = String.valueOf(System.currentTimeMillis());// 获取当前时间作为图片文件名字
+
+			if (Environment.getExternalStorageState().equals(
+					Environment.MEDIA_MOUNTED)) {// 判断SD卡是否挂载
+				File parent = Environment.getExternalStorageDirectory();// 获取到SD卡根目录
+				downloadFile = new File(parent, fileName);// 设置文件目录文件名字
+				fos = new FileOutputStream(downloadFile);// 以一个文件目录打开一个输出流
+			}
+			byte[] bs = new byte[2 * 1024];// 创建一个2k的字节
+			int len;
+			if (fos != null) {
+				while ((len = is.read(bs)) != -1) {
+					fos.write(bs, 0, len);
+				}
+			}
+
+			final Bitmap bitmap = BitmapFactory.decodeFile(downloadFile
+					.getAbsolutePath());
+			handler.post(new Runnable() {
 				@Override
 				public void run() {
-					webView.loadData(buffer.toString(),
-							"text/html;charset=UTF-8", null);
+					imageView.setImageBitmap(bitmap);
 				}
 			});
-
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -83,5 +97,4 @@ public class HttpWebService extends Thread {
 		}
 
 	}
-
 }

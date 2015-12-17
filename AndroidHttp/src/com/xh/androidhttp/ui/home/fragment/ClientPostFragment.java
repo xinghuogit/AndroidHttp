@@ -1,6 +1,8 @@
 package com.xh.androidhttp.ui.home.fragment;
 
 import com.xh.androidhttp.R;
+import com.xh.androidhttp.constant.Constant;
+import com.xh.androidhttp.serve.extend.HttpClientService;
 import com.xh.androidhttp.serve.extend.HttpIvService;
 import com.xh.androidhttp.serve.extend.HttpService;
 import com.xh.androidhttp.serve.extend.HttpWebService;
@@ -33,7 +35,7 @@ public class ClientPostFragment extends Fragment implements OnClickListener {
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_httppost, container, false);
+		return inflater.inflate(R.layout.fragment_clientpost, container, false);
 	}
 
 	@Override
@@ -49,6 +51,7 @@ public class ClientPostFragment extends Fragment implements OnClickListener {
 		user = (EditText) parent.findViewById(R.id.user);
 		psw = (EditText) parent.findViewById(R.id.psw);
 		login = (Button) parent.findViewById(R.id.login);
+
 	}
 
 	private void setListener() {
@@ -59,7 +62,7 @@ public class ClientPostFragment extends Fragment implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.login:
-			startPostService();
+			startClientPostService();
 			break;
 		default:
 			break;
@@ -67,8 +70,8 @@ public class ClientPostFragment extends Fragment implements OnClickListener {
 
 	}
 
-	private void startPostService() {
-		new HttpService("http://192.168.1.100:8080/xhsp/register.json", user
+	private void startClientPostService() {
+		new HttpClientService(Constant.getInstantce().getService("2"), user
 				.getText().toString().trim(), psw.getText().toString().trim())
 				.start();
 	}

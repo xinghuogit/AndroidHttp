@@ -21,7 +21,7 @@
                 android:layout_height="40dp"
                 android:background="@color/app_blue"
                 android:gravity="center"
-                android:text="httpget网页加载"
+                android:text="clientget网页加载"
                 android:textColor="@color/white" />
 
             <WebView
@@ -46,7 +46,7 @@
                 android:layout_height="40dp"
                 android:background="@color/app_blue"
                 android:gravity="center"
-                android:text="httpget图片加载"
+                android:text="clientget图片加载"
                 android:textColor="@color/white" />
 
             <ImageView
@@ -70,7 +70,7 @@
             android:layout_height="40dp"
             android:background="@color/app_blue"
             android:gravity="center"
-            android:text="httpget请求"
+            android:text="clientget请求"
             android:textColor="@color/white" />
 
         <EditText

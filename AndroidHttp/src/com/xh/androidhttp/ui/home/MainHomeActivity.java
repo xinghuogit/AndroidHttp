@@ -68,7 +68,7 @@ public class MainHomeActivity extends FragmentActivity implements
 			break;
 		case R.id.tv4:
 			setCurrentView(tv4);
-			bt.replace(R.id.fragment_layout, clientGetFragment).commit();
+			bt.replace(R.id.fragment_layout, clientPostFragment).commit();
 			break;
 		default:
 			break;

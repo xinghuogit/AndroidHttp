@@ -54,7 +54,8 @@ public class UploadThread extends Thread {
 
 	@Override
 	public void run() {
-		clientUpload();
+//		clientUpload();
+		httpUpload();
 	}
 
 	private void clientUpload() {

@@ -88,7 +88,8 @@ public class HttpPostFragment extends Fragment implements OnClickListener {
 		String fileName = fileAbs.getAbsolutePath();
 		System.out.println("fileName:" + fileName);
 		UploadThread uploadThread = new UploadThread(fileAbs, fileName,
-				"http://192.168.31.107:8080/xhsp/Upload");
+				Constant.getService(Constant.API_UPLOAD_IMG));
+		// "http://192.168.31.107:8080/xhsp/Upload"
 		uploadThread.start();
 	}
 }

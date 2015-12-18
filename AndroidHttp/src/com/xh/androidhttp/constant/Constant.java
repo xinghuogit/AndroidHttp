@@ -27,20 +27,28 @@ public class Constant implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private static Constant constant = new Constant();
+	public static final String BOUNDARY__ = "--";
 
-	public static Constant getInstantce() {
-		return constant;
+	/**
+	 * 公司http请求boundary
+	 */
+	public static final String BOUNDARY = "----WebKitFormBoundaryEnPfBCbCqpmt7O2G";
+
+	/**
+	 * 家
+	 */
+	// private String START_SERVICE = "http://192.168.1.100:8080/xhsp/";
+	/**
+	 * 公司
+	 */
+	public static final String START_SERVICE = "http://192.168.31.107:8080/xhsp/";
+
+	public static String getService(String str) {
+		return START_SERVICE + str;
 	}
 
-	private String START_SERVICE_FAMILY = "http://192.168.1.100:8080/xhsp/register.json";
-	private String START_SERVICE_COMPANY = "http://192.168.31.107:8080/xhsp/register.json";
+	public static final String API_REGISTER = "register.json";
+	public static final String API_PHONE = "360w.jpg";
+	public static final String API_UPLOAD_IMG = "upload.json";
 
-	public String getService(String str) {
-		if (str.equals("1")) {
-			return START_SERVICE_FAMILY;
-		} else {
-			return START_SERVICE_COMPANY;
-		}
-	}
 }

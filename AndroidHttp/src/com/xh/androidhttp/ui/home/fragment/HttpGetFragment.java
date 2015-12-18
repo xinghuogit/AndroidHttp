@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xh.androidhttp.R;
+import com.xh.androidhttp.constant.Constant;
+import com.xh.androidhttp.serve.extend.DownLoad;
 import com.xh.androidhttp.serve.extend.HttpIvService;
 import com.xh.androidhttp.serve.extend.HttpService;
 import com.xh.androidhttp.serve.extend.HttpWebService;
@@ -32,6 +34,8 @@ public class HttpGetFragment extends Fragment implements OnClickListener {
 
 	private EditText user, psw;
 	private Button login;
+
+	private ImageView dowload_iv;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -50,8 +54,9 @@ public class HttpGetFragment extends Fragment implements OnClickListener {
 		activity = getActivity();
 		parent = getView();
 		findView();
-		startService();
 		setListener();
+		startWebIvService();
+		startDowloadIv();
 	}
 
 	private void findView() {
@@ -62,6 +67,7 @@ public class HttpGetFragment extends Fragment implements OnClickListener {
 		psw = (EditText) parent.findViewById(R.id.psw);
 		login = (Button) parent.findViewById(R.id.login);
 
+		dowload_iv = (ImageView) parent.findViewById(R.id.dowload_iv);
 	}
 
 	private void setListener() {
@@ -81,12 +87,12 @@ public class HttpGetFragment extends Fragment implements OnClickListener {
 	}
 
 	private void startGetService() {
-		new HttpService("http://192.168.1.100:8080/xhsp/register.json", user
+		new HttpService(Constant.getService(Constant.API_REGISTER), user
 				.getText().toString().trim(), psw.getText().toString().trim())
 				.start();
 	}
 
-	private void startService() {
+	private void startWebIvService() {
 		// new HttpThreedImage(
 		// "http://i2.tietuku.com/8cbe6669f781eb60s.jpg",
 		// imageView, handler).start();//有时候打不开
@@ -95,4 +101,17 @@ public class HttpGetFragment extends Fragment implements OnClickListener {
 				iv, handler).start();
 		new HttpWebService("http://hao.360.cn/", webView, handler).start();
 	}
+
+	private void startDowloadIv() {
+		Thread thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				DownLoad downLoad = new DownLoad(handler);
+				downLoad.downLoadFile(Constant.getService(Constant.API_PHONE),
+						dowload_iv);
+			}
+		});
+		thread.start();
+	}
+
 }

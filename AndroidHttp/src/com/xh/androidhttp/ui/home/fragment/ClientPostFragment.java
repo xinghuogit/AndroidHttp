@@ -71,7 +71,7 @@ public class ClientPostFragment extends Fragment implements OnClickListener {
 	}
 
 	private void startClientPostService() {
-		new HttpClientService(Constant.getInstantce().getService("2"), user
+		new HttpClientService(Constant.getService(Constant.API_REGISTER), user
 				.getText().toString().trim(), psw.getText().toString().trim())
 				.start();
 	}

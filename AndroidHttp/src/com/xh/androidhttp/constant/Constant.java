@@ -32,16 +32,24 @@ public class Constant implements Serializable {
 	/**
 	 * 公司http请求boundary
 	 */
-	public static final String BOUNDARY = "----WebKitFormBoundaryEnPfBCbCqpmt7O2G";
+	// public static final String BOUNDARY =
+	// "----WebKitFormBoundaryEnPfBCbCqpmt7O2G";
+
+	/**
+	 * 家http请求boundary
+	 */
+	public static final String BOUNDARY = "----WebKitFormBoundaryYouqTAhHk35vGjVB";
 
 	/**
 	 * 家
 	 */
-	// private String START_SERVICE = "http://192.168.1.100:8080/xhsp/";
+	private static final String START_SERVICE = "http://192.168.1.100:8080/xhsp/";
+
 	/**
 	 * 公司
 	 */
-	public static final String START_SERVICE = "http://192.168.31.107:8080/xhsp/";
+	// public static final String START_SERVICE =
+	// "http://192.168.31.107:8080/xhsp/";
 
 	public static String getService(String str) {
 		return START_SERVICE + str;
